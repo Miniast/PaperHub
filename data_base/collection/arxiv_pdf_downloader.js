@@ -33,11 +33,10 @@ class Task {
         }
         this.crawler = new Crawler({
             rateLimit: 1000,
-            http2: true,
-            rejectUnauthorized: false,
-            timeout: 60000,
+            timeout: 90000,
             headers: {
                 "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+                "content-type": "application/json",
             },
         });
         this.crawler.on("drain", () => {
@@ -87,8 +86,9 @@ class Task {
     download_pdf = (err, res, done) => {
         const { code } = res.options.userParams;
         if (err) {
-            log.error(`Task ${code} failed.`);
-            log.error(err);
+            if (err.code === "ETIMEDOUT") {
+                this.crawler.add(res.options);
+            }
             return done();
         }
         fs.writeFileSync(`${pdfDir}/${code}.pdf`, res.body);

@@ -1,0 +1,19 @@
+{
+  "name": "collection",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "crawler": "^2.0.2",
+    "dayjs": "^1.11.13",
+    "papaparse": "^5.4.1",
+    "tslog": "^4.9.3"
+  }
+}
